@@ -31,9 +31,10 @@ learning_html_css_javascript/
 ```
 
 ## 🔄 使い方
-1. **GitHub Pages のリンク** を開いてページを確認する
-2. `index.html`, `style.css`, `script.js` を編集して、実際に動作を試す
-3. 詳しい解説を `explanation_*.html` ページで学ぶ
+https://hirasunaryou.github.io/learning_html_css_javascript/
+のサイトにこのコードで作成したWebサイトが見れます。そのサイトにHTML,CSS,JavaScriptの基礎やこのコードの中身の説明が書かれています。
+コードをダウンロードし、そこで得た知識を使って各ファイルを編集保存してみてください。
+そして、ローカル上でHTMLファイルをダブルクリックしてみて、ブラウザ上でページの変化を見ることでWebページの作成を体験していただく事ができると思います。
 
 ## 📝 クレジット
 **© Built with ( ´艸｀) by hirasunaryou. Licensed under CC BY 4.0.**  
