@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>script.js の詳細解説ページ</title>
+  <!-- Highlight.js の読み込み -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <style>
+    /* サイドバー（目次）用スタイル */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 100vh;
+      background: #f0f0f0;
+      padding: 1rem;
+      overflow-y: auto;
+      border-right: 1px solid #ddd;
+    }
+
+    .sidebar h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .sidebar ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .sidebar ul li a:hover {
+      text-decoration: underline;
+    }
+
+    /* ネストされたリストのインデント */
+    .sidebar ul ul {
+      padding-left: 1.5em;
+      margin-top: 0.5em;
+    }
+
+    /* メインコンテンツエリア */
+    .content {
+      margin-left: 260px;
+      padding: 1rem;
+    }
+
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section h1,
+    .section h2,
+    .section h3,
+    .section h4 {
+      margin-top: 1rem;
+    }
+
+    .code-block {
+      background: #f5f5f5;
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .experiment {
+      background: #e9f7ef;
+      padding: 1rem;
+      border-left: 4px solid #4a6fa5;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- サイドバー（目次） -->
+  <div class="sidebar">
+    <h2>目次</h2>
+    <ul>
+      <li><a href="#intro">はじめに</a></li>
+      <li>
+        <a href="#js-basics">0. JavaScriptの基本概念</a>
+        <ul>
+          <li><a href="#js-basics-1">0-1. JavaScriptとは？</a></li>
+          <li><a href="#js-basics-2">0-2. 基本的な文法と構文</a></li>
+          <li><a href="#js-basics-3">0-3. 変数、データ型、演算子</a></li>
+          <li><a href="#js-basics-4">0-4. 関数の定義と呼び出し</a></li>
+          <li><a href="#js-basics-5">0-5. コメントとコードの可読性</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#basic-structure">1. スクリプトの基本構造と初期化処理</a>
+        <ul>
+          <li><a href="#dom-loaded">1-1. ページ読み込み後の初期化処理</a></li>
+          <li><a href="#highlight-js">1-2. Highlight.js の実行</a></li>
+          <li><a href="#init-summary">1-3. 初期化処理のまとめと補足</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#codemirror-init">2. CodeMirror を利用したエディタ化</a>
+        <ul>
+          <li><a href="#init-editors">2-1. CodeMirror の初期化処理</a></li>
+          <li><a href="#editor-settings">2-2. 各エディタの設定とイベントハンドラー</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#preview-tabs">3. プレビュー更新とタブ切替機能</a>
+        <ul>
+          <li><a href="#update-preview">3-1. プレビュー更新関数の概要</a></li>
+          <li><a href="#switch-tab">3-2. タブ切替とリセット機能</a></li>
+        </ul>
+      </li>
+      <li><a href="#faq">4. よくある質問（FAQ）とデバッグのヒント</a></li>
+      <li><a href="#back-index">トップページへ戻る</a></li>
+    </ul>
+    
+
+
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="content">
+    <!-- はじめに -->
+    <section id="intro" class="section">
+      <h1>はじめに</h1>
+      <p>
+        このページは、完成済みの script.js を事例として、JavaScript の基本的な構造、初期化処理、CodeMirror を使ったエディタ化、プレビュー更新やタブ切替機能について詳しく解説する教材です。<br>
+        また、初歩的な内容として、JavaScriptそのものの基本概念も説明しています。読み進めながら、実際にコードを編集して動作の変化を体験してください。
+      </p>
+    </section>
+
+    <!-- 0. JavaScriptの基本概念 -->
+
+    <section id="js-basics" class="section">
+      <h1>0. JavaScriptの基本概念</h1>
+
+      <h2>0-1. JavaScriptとは？</h2>
+      <p>
+        JavaScriptは、ウェブページに動的な機能や対話性を与えるためのプログラミング言語です。<br>
+        HTMLでページの骨組みを作り、CSSで見た目を整えた後、JavaScriptを使ってユーザーとの対話や動的なコンテンツ更新を実現します。
+      </p>
+      <div class="code-block">
+        <pre><code class="language-html">&lt;script&gt;
+  console.log("Hello, world!");
+&lt;/script&gt;</code></pre>
+      </div>
+      <p>
+        上記のコードは、ページの読み込み時にコンソールに "Hello, world!" と表示するシンプルな例です。<br>
+        このように、JavaScriptはHTMLファイル内に直接記述するか、外部ファイルとして読み込むことができます。
+      </p>
+
+      <h2>0-2. 基本的な文法と構文</h2>
+      <p>
+        JavaScriptのコードは、文（statement）や式（expression）から構成され、通常はセミコロン (<code>;</code>) で区切ります。<br>
+        オートセミコロン挿入 (ASI) により省略できる場合もありますが、明示的に記述することが推奨されます。
+      </p>
+      <div class="code-block">
+        <pre><code class="language-js">let x = 10;
+const y = 20;
+console.log(x + y);</code></pre>
+      </div>
+      <p>
+        上記の例では、<code>let</code> と <code>const</code> を用いて変数を宣言し、計算結果を <code>console.log()</code> で出力しています。
+      </p>
+
+      <h2>0-3. 変数、データ型、演算子</h2>
+      <p>
+        変数は、<code>var</code>、<code>let</code>、<code>const</code> を用いて宣言します。<br>
+        <code>let</code> は再代入可能な変数、<code>const</code> は再代入不可能な定数を宣言します。<br>
+        JavaScript には、数値、文字列、真偽値、オブジェクト、配列などのデータ型があります。
+      </p>
+      <div class="code-block">
+        <pre><code class="language-js">let name = "太郎";   // 文字列
+let age = 25;          // 数値
+const isStudent = true; // 真偽値
+let sum = age + 5;     // 演算子を使った計算</code></pre>
+      </div>
+      <p>
+        また、<code>+</code>、<code>-</code>、<code>*</code>、<code>/</code> などの演算子を使用して、計算や文字列の連結が可能です。
+      </p>
+
+      <h2>0-4. 関数の定義と呼び出し</h2>
+      <p>
+        関数は、一連の処理をまとめて実行するためのブロックです。関数を使用することで、コードの再利用性が高まり、複雑な処理を整理して書くことができます。
+      </p>
+      <div class="code-block">
+        <pre><code class="language-js">function greet(name) {
+  return "こんにちは、" + name + "さん！";
+}
+console.log(greet("花子"));</code></pre>
+      </div>
+      <p>
+        上記の例では、<code>greet</code> 関数が定義され、引数として渡された名前に応じた挨拶文を返しています。<br>
+        関数は呼び出すたびに実行されるため、同じ処理を何度も利用することができます。
+      </p>
+
+      <h2>0-5. コメントとコードの可読性</h2>
+      <p>
+        コメントは、コード内にメモや補足情報を記述するためのものです。<br>
+        単一行のコメントは <code>//</code>、複数行の場合は <code>/* ... */</code> を使います。
+      </p>
+      <div class="code-block">
+        <pre><code class="language-js">// これは一行コメントです
+
+/*
+  これは複数行のコメントです。
+  この部分には、コードの意図や処理の詳細を記述できます。
+*/
+console.log("コメントの例");</code></pre>
+      </div>
+      <p>
+        コメントを適切に使うことで、コードの意味を明確にし、後から見返したときや他の人と共有する際に理解しやすくなります。
+      </p>
+
+      <div class="experiment">
+        <h4>実験してみよう！</h4>
+        <ul>
+          <li>変数や関数のコードを変更して、コンソールに表示される内容がどのように変わるかを試してみる。</li>
+          <li>コメントを追加・修正して、コードの意図を分かりやすく記述してみる。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 1. スクリプトの基本構造と初期化処理 -->
+    <section id="basic-structure" class="section">
+      <h1>1. スクリプトの基本構造と初期化処理</h1>
+
+      <!-- 1-1. ページ読み込み後の初期化処理 -->
+      <section id="dom-loaded" class="section">
+        <h2>1-1. ページ読み込み後の初期化処理</h2>
+        <div class="code-block">
+          <pre><code class="language-js">document.addEventListener('DOMContentLoaded', () => {
+  // この関数は、HTMLが完全にパースされた直後に実行されます。
+  // ここで初期化処理を実行することで、DOM要素に安全にアクセスできます。
+  
+  // ① シンタックスハイライトの適用
+  hljs.highlightAll();
+  
+  // ② CodeMirror エディタの初期化
+  initCodeMirrorEditors();
+  
+  // ※ 初めての方へ：window.onload との違い
+  // window.onload はページ内の全リソース（画像、CSSなど）の読み込み完了を待ちますが、
+  // DOMContentLoaded はHTMLパース完了後すぐに実行されるため、より早く動作を開始できます。
+});</code></pre>
+        </div>
+        <p>
+          このコードは、<code>DOMContentLoaded</code> イベントリスナーを使用して、ページ内のHTMLがすべて構築されたタイミングで初期化処理を開始します。<br>
+          これにより、画像などの外部リソースを待たずに、迅速にスクリプトの動作を開始できます。
+        </p>
+        <p>
+          初心者にとって、<code>DOMContentLoaded</code> の使い方は非常に重要です。<br>
+          例えば、<code>window.onload</code> と比べると、処理の開始が早いため、ユーザー体験が向上します。
+        </p>
+        <div class="experiment">
+          <h4>実験してみよう！</h4>
+          <ul>
+            <li>
+              コード内に <code>alert('DOMが読み込まれました');</code> を追加し、どのタイミングでこのメッセージが表示されるか確認してみる。
+            </li>
+            <li>
+              <code>DOMContentLoaded</code> を <code>window.onload</code> に変更し、処理開始のタイミングの違いを体験してみる。
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 1-2. Highlight.js の実行 -->
+      <section id="highlight-js" class="section">
+        <h2>1-2. Highlight.js の実行</h2>
+        <div class="code-block">
+          <pre><code class="language-js">hljs.highlightAll();</code></pre>
+        </div>
+        <p>
+          Highlight.js は、ページ内のコードブロックにシンタックスハイライト（色分け）を適用するライブラリです。<br>
+          この関数を呼び出すことで、コードが視覚的に見やすくなり、各部分の意味が一目で分かりやすくなります。
+        </p>
+        <p>
+          色分けされたコードは、どの部分がキーワードや変数かを区別するのに役立ち、プログラミングの学習をサポートします。
+        </p>
+        <div class="experiment">
+          <h4>実験してみよう！</h4>
+          <ul>
+            <li>
+              使用しているテーマを別のものに変更するため、外部CSSのURLを変えて、シンタックスハイライトの見た目がどう変わるか確認する。
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 1-3. 初期化処理のまとめと補足 -->
+      <section id="init-summary" class="section">
+        <h2>1-3. 初期化処理のまとめと補足</h2>
+        <p>
+          上記の初期化処理では、<code>DOMContentLoaded</code> イベントを利用して、ページのDOMが準備でき次第必要な処理（Highlight.js の適用や CodeMirror
+          の初期化）を行っています。<br>
+          これにより、ユーザーがすぐに編集やプレビューを体験できる環境が整います。
+        </p>
+        <p>
+          <strong>補足:</strong><br>
+          - <code>hljs.highlightAll()</code> は、コードブロックの自動ハイライトを行い、コードの読みやすさを向上させます。<br>
+          - <code>initCodeMirrorEditors()</code> は、各テキストエリアを高機能なコードエディタに変換するための関数です。<br>
+          このような初期化処理は、スクリプトの安定した動作とユーザー体験の向上に大いに貢献します。
+        </p>
+      </section>
+    </section>
+
+
+
+
+    <!-- 2. CodeMirror を利用したエディタ化 -->
+    <section id="codemirror-init" class="section">
+      <h1>2. CodeMirror を利用したエディタ化</h1>
+
+      <!-- 2-1. CodeMirror の初期化処理 -->
+      <section id="init-editors" class="section">
+        <h2>2-1. CodeMirror の初期化処理</h2>
+        <div class="code-block">
+          <pre><code class="language-js">function initCodeMirrorEditors() {
+  // HTMLセクションのエディタ化
+  const htmlTextarea = document.getElementById('html-code');
+  htmlEditor = CodeMirror.fromTextArea(htmlTextarea, {
+      mode: 'htmlmixed',
+      theme: 'darcula',
+      lineNumbers: true
+  });
+  htmlEditor.on('change', updateHTMLPreview);
+  // ... 他のセクションも同様に初期化
+  updateHTMLPreview();
+  updateCSSPreview();
+  updateJSPreview();
+  updatePlayground();
+}</code></pre>
+        </div>
+        <p>
+          この関数は、各テキストエリアを CodeMirror エディタに変換し、シンタックスハイライトや行番号表示などの機能を提供します。<br>
+          これにより、コード編集がしやすくなり、変更が即座にプレビューに反映されます。
+        </p>
+        <div class="experiment">
+          <h4>実験してみよう！</h4>
+          <ul>
+            <li>CodeMirror のオプション（例：テーマや行番号表示）を変更して、エディタの見た目がどう変わるか確認する。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2-2. 各エディタの設定とイベントハンドラー -->
+      <section id="editor-settings" class="section">
+        <h2>2-2. 各エディタの設定とイベントハンドラー</h2>
+        <div class="code-block">
+          <pre><code class="language-js">htmlEditor.on('change', updateHTMLPreview);
+cssEditor.on('change', updateCSSPreview);
+jsEditor.on('change', updateJSPreview);
+pgHtmlEditor.on('change', updatePlayground);
+// ... 同様に、各エディタが変更されたときの処理を登録
+</code></pre>
+        </div>
+        <p>
+          各エディタには「変更」イベントリスナーを設定しています。<br>
+          これにより、エディタの内容が変わるとすぐにプレビューが更新され、ユーザーがその結果を確認できるようになります。
+        </p>
+        <div class="experiment">
+          <h4>実験してみよう！</h4>
+          <ul>
+            <li>エディタ内でコードを変更し、プレビューが自動的に更新される様子を確認する。</li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+    <!-- 3. プレビュー更新とタブ切替機能 -->
+    <section id="preview-tabs" class="section">
+      <h1>3. プレビュー更新とタブ切替機能</h1>
+
+      <!-- 3-1. プレビュー更新関数の概要 -->
+      <section id="update-preview" class="section">
+        <h2>3-1. プレビュー更新関数の概要</h2>
+        <div class="code-block">
+          <pre><code class="language-js">function updateHTMLPreview() {
+  const code = htmlEditor.getValue();
+  document.getElementById('html-result').innerHTML = code;
+}</code></pre>
+        </div>
+        <p>
+          この関数は、HTMLエディタ内のコードを取得し、プレビューエリアに反映するためのものです。<br>
+          同様に、CSS や JavaScript 用のプレビュー更新関数も用意され、各編集内容がリアルタイムで表示されます。
+        </p>
+      </section>
+
+      <!-- 3-2. タブ切替とリセット機能 -->
+      <section id="switch-tab" class="section">
+        <h2>3-2. タブ切替とリセット機能</h2>
+        <div class="code-block">
+          <pre><code class="language-js">function switchTab(tabId, clickedTab) {
+  const tabContents = clickedTab.parentElement.parentElement.querySelectorAll('.tab-content');
+  tabContents.forEach(content => {
+    content.style.display = 'none';
+  });
+  document.getElementById(tabId).style.display = 'block';
+  // リフレッシュ処理などがここに含まれる
+}
+
+function resetJS() {
+  const defaultJS = `// クリック時に入力内容をチェックする関数
+function handleButtonClick() {
+  // ここに処理を記述
+}
+// イベントリスナーを追加
+document.getElementById('demo-button').addEventListener('click', handleButtonClick);`;
+  jsEditor.setValue(defaultJS);
+}</code></pre>
+        </div>
+        <p>
+          <code>switchTab()</code> 関数はタブの切替を実現し、<br>
+          <code>resetJS()</code> 関数は編集内容を初期状態に戻すための処理です。<br>
+          これらの機能により、ユーザーは複数のタブを使い分けながら、簡単に実験や編集が行えます。
+        </p>
+        <div class="experiment">
+          <h4>実験してみよう！</h4>
+          <ul>
+            <li>タブ切替処理に変更を加えて、異なるエフェクトを試してみる。</li>
+            <li>リセットボタンを押して、エディタが初期状態に戻る様子を確認する。</li>
+          </ul>
+        </div>
+      </section>
+    </section>
+
+    <!-- 4. よくある質問（FAQ）とデバッグのヒント -->
+    <section id="faq" class="section">
+      <h1>4. よくある質問（FAQ）とデバッグのヒント</h1>
+      <p>
+        JavaScript のコード編集でよく直面する疑問やエラー、またその対処法を以下にまとめました。
+      </p>
+      <ul>
+        <li><strong>エラー例:</strong> "Unexpected token" → 文法ミスやクォーテーションの不一致に注意しましょう。</li>
+        <li><strong>デバッグ方法:</strong> ブラウザの開発者ツールで <code>console.log()</code> を活用し、変数の状態や処理の流れを確認してください。</li>
+      </ul>
+    </section>
+
+    <!-- トップページへ戻るリンク -->
+    <section id="back-index" class="section">
+      <h2>トップページへ戻る</h2>
+      <p>
+        <a href="index.html">こちらをクリックして index.html へ戻る</a>
+      </p>
+    </section>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; 2025 HTML・CSS・JavaScript学習サイト</p>
+  </footer>
+
+  <!-- スムーズスクロールなどのスクリプト -->
+  <script>
+    document.querySelectorAll('.sidebar a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    hljs.highlightAll();
+  </script>
+</body>
+
+</html>

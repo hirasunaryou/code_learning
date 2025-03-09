@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <!-- <meta charset="UTF-8"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>初心者のためのHTML・CSS・JavaScript学習ページ</title>
+
+  <!-- ページ全体のスタイル -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Highlight.jsのCSS（atom-one-darkテーマ） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+  <!-- Highlight.js本体 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+  <!-- CodeMirrorのCSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.css">
+  <!-- CodeMirror ダークテーマ（darcula） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/theme/darcula.min.css">
+  <!-- CodeMirror本体 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/codemirror.min.js"></script>
+  <!-- 各言語用モード -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.7/mode/css/css.min.js"></script>
+
+
+
+
+</head>
+
+
+<body>
+  <!-- ヘッダー：サイトのタイトル -->
+  <header>
+    <h1>初心者のためのHTML・CSS・JavaScript学習ページ</h1>
+  </header>
+
+  <!-- ナビゲーションバー：各セクションへのリンク（ダークモード切替ボタン削除） -->
+  <nav>
+    <a href="#intro">はじめに</a>
+    <a href="#html-section">HTML</a>
+    <a href="#css-section">CSS</a>
+    <a href="#js-section">JavaScript</a>
+    <a href="#playground">実験場</a>
+  </nav>
+
+  <!-- メインコンテンツ：各学習セクション -->
+  <main>
+    <!-- はじめにセクション -->
+    <section id="intro">
+      <h2>はじめに</h2>
+      <p>
+        このページは、HTML、CSS、JavaScriptの基本を学ぶための初心者向けサイトです。<br>
+        コードを実際に編集して、どのように変化するかを確認しましょう。
+      </p>
+      <div class="example-box">
+        <h3>Webページの3要素</h3>
+        <ul>
+          <li><strong>HTML</strong>: ページの<strong>構造</strong>（骨組み）</li>
+          <li><strong>CSS</strong>: ページの<strong>見た目</strong>（装飾）</li>
+          <li><strong>JavaScript</strong>: ページに<strong>動き</strong>（機能）</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HTMLセクション -->
+    <section id="html-section">
+      <h2>HTMLの基本</h2>
+      <p>HTMLはWebページの<strong>構造</strong>を作る言語です。タグを使って内容を定義します。</p>
+      <h3>HTMLの基本構造</h3>
+      <!-- 静的サンプルコード（Highlight.jsで色分け） -->
+      <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;ページのタイトル&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;見出し&lt;/h1&gt;
+  &lt;p&gt;段落のテキスト&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <!-- HTMLエディタとプレビューのタブ -->
+      <h3>HTMLを編集してみよう</h3>
+      <div class="nav-tabs">
+        <a class="active" onclick="switchTab('html-editor', this)">HTMLエディタ</a>
+        <a onclick="switchTab('html-preview', this)">プレビュー</a>
+      </div>
+      <div id="html-editor" class="tab-content">
+        <textarea id="html-code" class="code-editor">
+<h1>私のウェブページ</h1>
+<p>これは<strong>HTML学習</strong>のためのページです。</p>
+<ul>
+  <li>項目1</li>
+  <li>項目2</li>
+</ul>
+<a href="#">リンクをクリック</a></textarea>
+        <button onclick="resetHTML()">リセット</button>
+      </div>
+
+      <div id="html-preview" class="tab-content" style="display: none;">
+        <div id="html-result" class="preview-area"></div>
+      </div>
+    </section>
+
+    <!-- CSSセクション -->
+    <section id="css-section">
+      <h2>CSSの基本</h2>
+      <p>CSSはHTML要素の<strong>見た目</strong>を整えるための言語です。</p>
+      <h3>CSSの書き方</h3>
+      <div class="example-box">
+        <h4>1. インラインスタイル</h4>
+        <pre><code class="language-html">&lt;p style="color: blue;"&gt;青い文字&lt;/p&gt;</code></pre>
+        <h4>2. 内部CSS（styleタグ内）</h4>
+        <pre><code class="language-html">&lt;style&gt;
+p { color: blue; }
+&lt;/style&gt;</code></pre>
+        <h4>3. 外部CSS（推奨）</h4>
+        <pre><code class="language-html">&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+      </div>
+      <!-- CSSエディタとプレビューのタブ -->
+      <h3>CSSを編集してみよう</h3>
+      <div class="nav-tabs">
+        <a class="active" onclick="switchTab('css-html-editor', this)">HTML</a>
+        <a onclick="switchTab('css-editor', this)">CSS</a>
+        <a onclick="switchTab('css-preview', this)">プレビュー</a>
+      </div>
+      <div id="css-html-editor" class="tab-content">
+        <textarea id="css-html-code" class="code-editor" readonly>
+<div class="container">
+  <h1 class="title">CSSを学ぼう</h1>
+  <p class="text">これはCSSでスタイリングされたテキストです。</p>
+  <div class="box">ボックス要素</div>
+  <button class="button">ボタン</button>
+</div>
+        </textarea>
+      </div>
+      <div id="css-editor" class="tab-content" style="display: none;">
+        <textarea id="css-code" class="code-editor">
+/* コンテナの基本スタイル */
+.container {
+  padding: 20px;
+  background-color: #f0f0f0;
+}
+
+/* タイトルのスタイル */
+.title {
+  color: #4a6fa5;
+  text-align: center;
+}
+
+/* テキストのスタイル */
+.text {
+  color: #333;
+  line-height: 1.6;
+}
+
+/* ボックスのスタイル */
+.box {
+  background-color: #4a6fa5;
+  color: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+
+/* ボタンのスタイル */
+.button {
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+        </textarea>
+        <button onclick="resetCSS()">リセット</button>
+      </div>
+      <div id="css-preview" class="tab-content" style="display: none;">
+        <div id="css-result" class="preview-area"></div>
+      </div>
+    </section>
+
+    <!-- JavaScriptセクション -->
+    <section id="js-section">
+      <h2>JavaScriptの基本</h2>
+      <p>JavaScriptはWebページに<strong>動き</strong>や<strong>対話性</strong>を追加するための言語です。</p>
+      <h3>JavaScriptの書き方</h3>
+      <div class="example-box">
+        <h4>1. インラインJavaScript</h4>
+        <pre><code class="language-html">&lt;button onclick="alert('こんにちは！')"&gt;クリック&lt;/button&gt;</code></pre>
+        <h4>2. 内部JavaScript</h4>
+        <pre><code class="language-html">&lt;script&gt;
+function sayHello() {
+  alert('こんにちは！');
+}
+&lt;/script&gt;</code></pre>
+        <h4>3. 外部JavaScript（推奨）</h4>
+        <pre><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+      </div>
+      <!-- JavaScriptエディタとプレビューのタブ -->
+      <h3>JavaScriptを編集してみよう</h3>
+      <div class="nav-tabs">
+        <a class="active" onclick="switchTab('js-html-editor', this)">HTML</a>
+        <a onclick="switchTab('js-editor', this)">JavaScript</a>
+        <a onclick="switchTab('js-preview', this)">プレビュー</a>
+      </div>
+      <div id="js-html-editor" class="tab-content">
+        <textarea id="js-html-code" class="code-editor" readonly>
+<div>
+  <h3>JavaScriptのデモ</h3>
+  <p id="output">ここに結果が表示されます</p>
+  <button id="demo-button">クリック</button>
+  <input type="text" id="demo-input" placeholder="入力してください">
+</div>
+        </textarea>
+      </div>
+      <div id="js-editor" class="tab-content" style="display: none;">
+        <textarea id="js-code" class="code-editor">
+// クリック時に入力内容をチェックし結果を表示する関数
+function handleButtonClick() {
+  const inputValue = document.getElementById('demo-input').value;
+  if (inputValue.trim() === '') {
+    document.getElementById('output').textContent = 'テキストを入力してください';
+    document.getElementById('output').style.color = 'red';
+  } else {
+    document.getElementById('output').textContent = '入力値: ' + inputValue;
+    document.getElementById('output').style.color = 'green';
+  }
+}
+// イベントリスナーを追加して、ボタンがクリックされたときにhandleButtonClickを実行
+document.getElementById('demo-button').addEventListener('click', handleButtonClick);
+        </textarea>
+        <button onclick="resetJS()">リセット</button>
+      </div>
+      <div id="js-preview" class="tab-content" style="display: none;">
+        <div id="js-result" class="preview-area"></div>
+      </div>
+    </section>
+
+    <!-- 総合実験場（Playground） -->
+    <section id="playground">
+      <h2>総合実験場</h2>
+      <p>HTML、CSS、JavaScriptを自由に組み合わせて実験できます。</p>
+      <div class="nav-tabs">
+        <a class="active" onclick="switchTab('playground-html', this)">HTML</a>
+        <a onclick="switchTab('playground-css', this)">CSS</a>
+        <a onclick="switchTab('playground-js', this)">JavaScript</a>
+        <a onclick="switchTab('playground-preview', this)">プレビュー</a>
+      </div>
+      <div id="playground-html" class="tab-content">
+        <textarea id="playground-html-code" class="code-editor">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>実験ページ</title>
+</head>
+<body>
+  <h1 id="title">こんにちは、ウェブの世界！</h1>
+  <p>HTML, CSS, JavaScriptの学習ページです。</p>
+  <div class="box">
+    <p>このボックスのスタイルはCSSで変更可能です。</p>
+  </div>
+  <button id="change-title">タイトルを変更</button>
+  <button id="toggle-box">ボックスの表示/非表示</button>
+</body>
+</html>
+        </textarea>
+      </div>
+      <div id="playground-css" class="tab-content" style="display: none;">
+        <textarea id="playground-css-code" class="code-editor">
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+h1 {
+  color: #4a6fa5;
+  text-align: center;
+}
+.box {
+  background-color: #f0f0f0;
+  border: 2px solid #4a6fa5;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+button {
+  background-color: #4a6fa5;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+        </textarea>
+      </div>
+      <div id="playground-js" class="tab-content" style="display: none;">
+        <textarea id="playground-js-code" class="code-editor">
+// ページ読み込み後に動作するJavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  // タイトル変更ボタンのクリックイベント
+  document.getElementById('change-title').addEventListener('click', function() {
+    const title = document.getElementById('title');
+    title.textContent = '新しいタイトルに変更されました！';
+    title.style.color = '#e74c3c';
+  });
+  // ボックスの表示/非表示切替ボタンのクリックイベント
+  document.getElementById('toggle-box').addEventListener('click', function() {
+    const box = document.querySelector('.box');
+    box.style.display = (box.style.display === 'none') ? 'block' : 'none';
+  });
+});
+        </textarea>
+      </div>
+      <div id="playground-preview" class="tab-content" style="display: none;">
+        <!-- プレビューはJavaScriptで生成されます -->
+      </div>
+    </section>
+  </main>
+
+  <!-- フッター -->
+  <footer>
+    <p>&copy; 2025 HTML・CSS・JavaScript学習サイト</p>
+    <p><a href="explanation_index_html.html">このページのhtmlコード(index.html)詳細解説ページへ</a></p>
+    <p><a href="explanation_style_css.html">このページのcssコード(style.css)詳細解説ページへ</a></p>
+    <p><a href="explanation_script.js">このページのJavaScriptコード(script.js)詳細解説ページへ</a></p>
+  </footer>
+
+  <!-- 外部JavaScriptファイルを読み込み -->
+  <script src="script.js"></script>
+</body>
+
+</html>

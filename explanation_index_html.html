@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初心者向け詳細コード解説ページ</title>
+    <!-- 外部CSSとライブラリの読み込み -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <style>
+        /* サイドバー（目次）用スタイル */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100vh;
+            background: #f0f0f0;
+            padding: 1rem;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* ネストされたリストのインデント */
+        .sidebar ul ul {
+            padding-left: 1.5em;
+            margin-top: 0.5em;
+        }
+
+        /* メインコンテンツエリア */
+        .content {
+            margin-left: 260px;
+            padding: 1rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h1,
+        .section h2,
+        .section h3,
+        .section h4 {
+            margin-top: 1rem;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .experiment {
+            background: #e9f7ef;
+            padding: 1rem;
+            border-left: 4px solid #4a6fa5;
+            margin-top: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #f0f0f0;
+            border-top: 1px solid #ddd;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- サイドバー（目次） -->
+    <div class="sidebar">
+        <h2>目次</h2>
+        <ul>
+            <li><a href="#intro">はじめに</a></li>
+            <li>
+                <a href="#html-structure">1. HTMLの基本構造とは？</a>
+                <ul>
+                    <li><a href="#doctype">1-1. ドキュメントの最初の宣言</a></li>
+                    <li><a href="#html-tag">1-2. &lt;html&gt;タグとlang属性</a></li>
+                    <li><a href="#head-section">1-3. &lt;head&gt;セクションの役割と構成</a></li>
+                    <li><a href="#body-section">1-4. &lt;body&gt;セクションの構成と各コンテンツ</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#css-link">2. スタイルとの連携とその効果</a>
+                <ul>
+                    <li><a href="#external-css">2-1. 外部CSSの読み込み</a></li>
+                    <li><a href="#css-effects">2-2. CSSがページに与える視覚的効果</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#js-link">3. 動的機能とインタラクションの実現</a>
+                <ul>
+                    <li><a href="#external-js">3-1. 外部JavaScriptの読み込み</a></li>
+                    <li><a href="#js-code">3-2. ページ動作を支える基本的なJavaScriptコード</a></li>
+                </ul>
+            </li>
+            <li><a href="#faq">よくある質問（FAQ）とデバッグのヒント</a></li>
+        </ul>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <div class="content">
+        <!-- はじめに -->
+        <section id="intro" class="section">
+            <h1>はじめに</h1>
+            <p>
+                このページは、完成済みの index.html を事例として、HTML の基本構造、文法、書き方の工夫などを詳しく解説する教材です。<br>
+                読み物として各要素の役割や意図を理解し、実際にコードを編集してその効果を体験してください。
+            </p>
+        </section>
+
+        <!-- 1. HTMLの基本構造とは？ -->
+        <section id="html-structure" class="section">
+            <h1>1. HTMLの基本構造とは？</h1>
+
+            <!-- 1-1. ドキュメントの最初の宣言 -->
+            <section id="doctype" class="section">
+                <h2>1-1. ドキュメントの最初の宣言</h2>
+                <div class="code-block">
+                    <pre><code class="language-html">&lt;!DOCTYPE html&gt;</code></pre>
+                </div>
+                <p>
+                    この宣言は、文書が HTML5 で書かれていることをブラウザに伝えます。<br>
+                    最新の仕様に基づいて正しく表示するために必須です。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li>この宣言を一時的に削除し、ブラウザの表示がどう変わるか確認してみましょう。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 1-2. <html>タグとlang属性 -->
+            <section id="html-tag" class="section">
+                <h2>1-2. &lt;html&gt;タグと <code>lang</code> 属性</h2>
+                <div class="code-block">
+                    <pre><code class="language-html">&lt;html lang="ja"&gt;</code></pre>
+                </div>
+                <p>
+                    <code>&lt;html&gt;</code> タグは文書全体のルート要素です。<br>
+                    <code>lang="ja"</code> 属性は、このページが日本語であることを示し、検索エンジンや支援技術の動作を最適化します。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li><code>lang</code> 属性の値を <code>"en"</code> に変更して、どのような影響があるかを確認してみる。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 1-3. <head> セクションの役割と構成 -->
+            <section id="head-section" class="section">
+                <h2>1-3. &lt;head&gt; セクションの役割と構成</h2>
+                <div class="code-block">
+                    <pre><code class="language-html">&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;初心者のためのHTML・CSS・JavaScript学習ページ&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+                </div>
+                <p>
+                    <code>&lt;head&gt;</code> 内では、文書全体の設定（文字コード、ビューポート、タイトル、外部リソースの読み込み）を行います。<br>
+                    これにより、正しく表示され、様々なデバイスに対応できるようになります。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li><code>&lt;title&gt;</code> の内容を変更して、ブラウザタブに反映されるタイトルを確認する。</li>
+                        <li><code>&lt;meta charset&gt;</code> の値を変えて、文字化けが起こるかどうかを実験してみる。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 1-4. <body> セクションの構成と各コンテンツ -->
+            <section id="body-section" class="section">
+                <h2>1-4. &lt;body&gt; セクションの構成と各コンテンツ</h2>
+                <div class="code-block">
+                    <pre><code class="language-html">&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;初心者のためのHTML・CSS・JavaScript学習ページ&lt;/h1&gt;
+  &lt;/header&gt;
+  &lt;nav&gt;
+    &lt;a href="#intro"&gt;はじめに&lt;/a&gt;
+    &lt;a href="#html"&gt;HTML&lt;/a&gt;
+    &lt;a href="#css"&gt;CSS&lt;/a&gt;
+    &lt;a href="#js"&gt;JavaScript&lt;/a&gt;
+    &lt;a href="#playground"&gt;実験場&lt;/a&gt;
+  &lt;/nav&gt;
+  &lt;main&gt;
+    &lt;section id="intro"&gt;
+      &lt;h2&gt;はじめに&lt;/h2&gt;
+      &lt;p&gt;このページは...&lt;/p&gt;
+    &lt;/section&gt;
+    ...
+  &lt;/main&gt;
+  &lt;footer&gt;
+    &lt;p&gt;&copy; 2025 HTML・CSS・JavaScript学習サイト&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+                </div>
+                <p>
+                    <code>&lt;body&gt;</code> には、実際にユーザーに表示されるコンテンツが含まれます。<br>
+                    ヘッダー、ナビゲーション、メインコンテンツ、フッターという構成で、各部分の役割を理解することで、全体の仕組みが把握できます。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li>ヘッダー内の見出しテキストを変更して、ページ全体の印象がどのように変わるか確認する。</li>
+                        <li>ナビゲーションリンクを追加・削除して、ページ内の移動がどのように動作するか実験する。</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+        <!-- 2. スタイルとの連携とその効果 -->
+        <section id="css-link" class="section">
+            <h1>2. スタイルとの連携とその効果</h1>
+
+            <!-- 2-1. 外部CSSの読み込み -->
+            <section id="external-css" class="section">
+                <h2>2-1. 外部CSSの読み込み</h2>
+                <div class="code-block">
+                    <pre><code class="language-html">&lt;link rel="stylesheet" href="style.css"&gt;</code></pre>
+                </div>
+                <p>
+                    このタグにより、style.css 内のスタイルがページに適用されます。<br>
+                    HTMLとスタイルを分離することで、コードの再利用性と管理がしやすくなります。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li>style.css の一部をコメントアウトし、ページの見た目がどう変わるかを確認する。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 2-2. CSSがページに与える視覚的効果 -->
+            <section id="css-effects" class="section">
+                <h2>2-2. CSSがページに与える視覚的効果</h2>
+                <p>
+                    CSS は、文字のフォント、色、背景、レイアウト、ボタンのデザインなど、ページの視覚的な印象を大きく左右します。<br>
+                    たとえば、<code>transition</code> プロパティを使うと、色の変化が滑らかになります。
+                </p>
+                <div class="code-block">
+                    <pre><code class="language-css">body {
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}</code></pre>
+                </div>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li>背景色や文字色、フォントサイズを変更して、どのような視覚効果が得られるか確認する。</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+        <!-- 3. 動的機能とインタラクションの実現 -->
+        <section id="js-link" class="section">
+            <h1>3. 動的機能とインタラクションの実現</h1>
+
+            <!-- 3-1. 外部JavaScriptの読み込み -->
+            <section id="external-js" class="section">
+                <h2>3-1. 外部JavaScriptの読み込み</h2>
+                <div class="code-block">
+                    <pre><code class="language-html">&lt;script src="script.js"&gt;&lt;/script&gt;</code></pre>
+                </div>
+                <p>
+                    このタグにより、script.js 内の JavaScript が読み込まれ、ページの動的な動作やインタラクションが実現されます。<br>
+                    JavaScript を利用することで、ユーザーの操作に応じた動作やコンテンツの更新が可能になります。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li>このタグを一時的に削除して、ページの動作にどのような影響があるか確認する。</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3-2. ページ動作を支える基本的なJavaScriptコード -->
+            <section id="js-code" class="section">
+                <h2>3-2. ページ動作を支える基本的なJavaScriptコード</h2>
+                <div class="code-block">
+                    <pre><code class="language-js">// ページ読み込み後の初期化処理
+document.addEventListener('DOMContentLoaded', () => {
+  hljs.highlightAll();
+  initCodeMirrorEditors();
+});</code></pre>
+                </div>
+                <p>
+                    このコードは、ページが完全に読み込まれた後に実行される初期化処理です。<br>
+                    <code>hljs.highlightAll()</code> によりコードがシンタックスハイライトされ、<code>initCodeMirrorEditors()</code>
+                    で各テキストエリアが高機能なエディタに変換されます。
+                </p>
+                <div class="experiment">
+                    <h4>実験してみよう！</h4>
+                    <ul>
+                        <li>この初期化処理に変更を加え、読み込み完了時にコンソールへメッセージを出力するようにして動作を確認する。</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+        <!-- FAQ・デバッグのヒント -->
+        <section id="faq" class="section">
+            <h1>よくある質問（FAQ）とデバッグのヒント</h1>
+            <p>
+                初心者が直面しやすいエラーや疑問点、その解決策を以下にまとめました。
+            </p>
+            <ul>
+                <li><strong>エラー例:</strong> "Unexpected token" → JavaScript の文法ミスが原因の場合があります。コードの記述ミスを注意深く確認してください。</li>
+                <li><strong>デバッグ方法:</strong> ブラウザのデベロッパーツールを利用し、<code>console.log()</code> で変数の状態や処理の流れを確認するのがおすすめです。
+                </li>
+            </ul>
+        </section>
+            <!-- トップページへ戻るリンク -->
+    <section class="section">
+        <h2>トップページへ戻る</h2>
+        <p>
+          <a href="index.html">こちらをクリックして index.html へ戻る</a>
+        </p>
+      </section>
+    </div>
+
+    <!-- フッター -->
+    <footer>
+        <p>&copy; 2025 HTML・CSS・JavaScript学習サイト</p>
+        <p><a href="index.html">トップページへ戻る</a></p>
+    </footer>
+
+    <!-- スムーズスクロールなどのスクリプト -->
+    <script>
+        // サイドバーのリンククリックでスムーズスクロールを実現
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        // Highlight.js の初期化
+        hljs.highlightAll();
+    </script>
+</body>
+
+</html>
