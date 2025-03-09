@@ -19,6 +19,7 @@ GitHub Pages でサイトを公開しています！
 📌 **[学習ページはこちら](https://hirasunaryou.github.io/learning_html_css_javascript/)**
 
 ## 📂 ファイル構成
+```
 learning_html_css_javascript/ 
 ├── index.html # メインの学習ページ
 ├── style.css # スタイル設定（CSS）
@@ -27,7 +28,7 @@ learning_html_css_javascript/
 ├── explanation_style_css.html # style.css の詳細解説
 ├── explanation_script_js.html # script.js の詳細解説
 └── README.md # この説明ファイル
-
+```
 
 ## 🔄 使い方
 1. **GitHub Pages のリンク** を開いてページを確認する
